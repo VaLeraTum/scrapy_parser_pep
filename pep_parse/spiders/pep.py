@@ -16,5 +16,5 @@ class PepSpider(scrapy.Spider):
         yield {
             'number': pep[1],
             'name': ' '.join(pep[3:]),
-            'status': response.css('abbr::text').get()
+            'status': response.css('dt:contains("Status")+dd abbr::text').get()
         }

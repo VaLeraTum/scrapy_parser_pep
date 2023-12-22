@@ -3,6 +3,8 @@ from pathlib import Path
 from datetime import datetime
 
 BASE_DIR = Path(__file__).parent.parent
+NOW_TIME = datetime.strftime(datetime.now(), '%Y-%m-%dT%H-%M-%S')
+FILENAME = 'status_summary_' + NOW_TIME + '.csv'
 
 
 class PepParsePipeline:
@@ -15,10 +17,8 @@ class PepParsePipeline:
         return item
 
     def close_spider(self, spider):
-        time = datetime.strftime(datetime.now(), '%Y-%m-%dT%H-%M-%S')
         path = BASE_DIR / 'results'
-        filename = 'status_summary_' + time + '.csv'
-        with open(path / filename, mode='w', encoding='utf-8') as file:
+        with open(path / FILENAME, mode='w', encoding='utf-8') as file:
             csv.writer(file).writerows(
                 (
                     ['Статус', 'Колличество'],
